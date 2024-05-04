@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- css -->
     <link rel="stylesheet" href="style.css">
+    <!-- font-awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- title -->
+    <title>Grocery List</title>
+    
 </head>
 <body>
   <div class="wrapper flex-center ">
         <div class="grocery-container ">
-            <h3>Grocery Bud</h3>
+            <h3>Grocery List</h3>
             <div class="form-container">
-                <form >
+                <form  >
                     <input type="text" placeholder="e.g eggs">
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="submit-btn">Submit</button>
                 </form>
+                <div class="list ">
+                  <p>item</p> 
+                 <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                  <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+             </div>
+             <div class="list ">
+                  <p>item2</p> 
+                 <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                  <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+             </div>
             </div>
+             
             <div class="clear-btn-container flex-center">
                 <button class="clear-btn btn">clear-items</button>
             </div>
