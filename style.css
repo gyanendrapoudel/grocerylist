@@ -80,8 +80,11 @@ form input{
 .clear-btn-container{
     margin-top: 1rem;
     /* display: none; */
-    /* visibility: hidden; */
+    visibility: hidden;
    
+}
+.show{
+    visibility: visible;
 }
 .clear-btn{
      color: rgb(186, 8, 8);
@@ -115,6 +118,28 @@ form input{
 }
 .list:hover{
     background-color: rgba(226, 251, 255, 0.94);
+}
+
+/* notification */
+.notification{
+    text-align: center;
+    padding: 0.2rem 1rem;
+    border-radius: 2px;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 14px;
+    visibility: hidden;
+
+}
+.display-green{
+    visibility: visible;
+    background-color: green;
+
+    
+}
+.display-red{
+ visibility: visible;
+  background-color: rgba(229, 39, 39, 0.787);
 }
 /* mobile responsive */
 
