@@ -2,8 +2,9 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.input')
 const container = document.querySelector('.listcontainer')
 const clearBtn = document.querySelector('.clear-btn')
-
-
+const subBtn = document.querySelector('.submit-btn')
+let editMode =false;
+let editId;
 form.addEventListener("submit", (e) => {
   e.preventDefault()
   let id = new Date().getTime()
@@ -11,7 +12,22 @@ form.addEventListener("submit", (e) => {
     alert('Please enter value', 'red')
     return
   }
-
+  if(input.value && editMode){
+    const lists = document.querySelectorAll('.edit-btn')
+    let itemTOEdit;
+    lists.forEach((li)=>{
+        if(li.dataset.id===editId){
+            itemTOEdit=li
+        }
+    })
+    // Editing the list 
+    itemTOEdit.parentNode.children[0].textContent=input.value
+    alert('Item Edited', 'green')
+    setDefault()
+    editMode=false
+    return
+  }
+  
   const element = document.createElement('div')
   element.classList.add('list')
   element.innerHTML = ` <p>${input.value}</p> 
@@ -25,7 +41,7 @@ form.addEventListener("submit", (e) => {
 //    Delete event end
 //    Edit event start
   const editItem = element.querySelector('.edit-btn')
-  editItem.addEventListener('click',()=>{})
+  editItem.addEventListener('click',editingItem)
 //    Edit event end
   container.appendChild(element)
   alert('Item added on list', 'green')
@@ -64,10 +80,26 @@ function deletingItem(e){
   }
  
 }
+// edit an Item
+function editingItem(e){
+// e.currentTarget is edit btn, previous element sibling is delete btn
+// previous element sibling is list text that need to edit
+input.value =e.currentTarget.previousElementSibling.previousElementSibling.textContent
+subBtn.textContent='Edit'
+
+// setting adding mode true so when form submitted it will work as edit mode
+editMode=true;
+editId=e.currentTarget.dataset.id;
+
+
+
+}
+
 // setting to default form
 
 function setDefault(){
     input.value=''
+    subBtn.textContent="Submit"
     clearBtn.classList.add('show')
     container.classList.add('show')
    
@@ -83,5 +115,4 @@ function alert(message , color){
          notification.classList.remove(`display-${color}`)
     },1000)
    
-
 }
