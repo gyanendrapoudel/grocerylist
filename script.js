@@ -16,6 +16,7 @@ form.addEventListener("submit", (e) => {
                  <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                   <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
              `
+
   container.appendChild(element)
    alert('Item added on list', 'green')
   setDefault();
@@ -42,15 +43,15 @@ function setDefault(){
    
 }
 
+//  displaying notification message
+
 function alert(message , color){
     const notification = document.querySelector('.notification')
     notification.classList.add(`display-${color}`)
     notification.textContent = message
     setTimeout(()=>{
-         
          notification.classList.remove(`display-${color}`)
     },1000)
-    notification.classList.remove
    
 
 }

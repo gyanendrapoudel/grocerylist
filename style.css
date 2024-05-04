@@ -133,7 +133,7 @@ form input{
 }
 .display-green{
     visibility: visible;
-    background-color: green;
+    background-color: rgb(73, 111, 73);
 
     
 }
