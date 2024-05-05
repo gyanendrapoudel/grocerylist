@@ -62,7 +62,7 @@ function addItem(e){
 
    //   saving item to localStorage
    
-   addToLocalStorage({id:input.value})
+   addToLocalStorage({id:id,value:input.value})
 
    setDefault()
 }
@@ -102,6 +102,8 @@ function deletingItem(e){
          editMode=false
          addItem();
         }
+        // Removing an Item from localStorage
+        removeFromLocalStorage(e.currentTarget.dataset.id)
 }
 
 
@@ -153,3 +155,11 @@ function alert(message , color){
     }
 
 
+//  Removing an Item from localStorage
+function  removeFromLocalStorage(id){
+
+  let items = getFromLocalStorage();
+  // id is on string type so converting into integer
+  items = items.filter((item)=>item.id!==parseInt(id));
+ 
+}
