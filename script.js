@@ -6,16 +6,15 @@ const subBtn = document.querySelector('.submit-btn')
 
 let editMode =false;
 let editId;
-let groceries =[]
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-   addItem();
-})
+let groceries =[];
 
 
+
+form.addEventListener("submit", addItem)
 
 // addItem 
-function addItem(){
+function addItem(e){
+  e.preventDefault()
    let id = new Date().getTime()
    if (!input.value) {
      alert('Please enter value', 'red')
@@ -29,6 +28,7 @@ function addItem(){
          itemToEdit = li
        }
      })
+
      if (!itemToEdit) {
        return
      }
@@ -61,17 +61,19 @@ function addItem(){
    alert('Item added on list', 'green')
 
    //   saving item to localStorage
-   groceries.push({ id: id, value: input.value })
-   addToLocalStorage(groceries)
+   
+   addToLocalStorage({id:input.value})
 
    setDefault()
 }
 
 // clearing all items
 clearBtn.addEventListener('click',()=>{
-    container.innerHTML='';
-    clearBtn.classList.remove('show')
-    alert('Empty List', 'red')
+  container.innerHTML = ''
+  clearBtn.classList.remove('show')
+  alert('Empty List', 'red')
+  // Removing from local storage
+   localStorage.removeItem('lists')
 })
 
 
@@ -100,9 +102,8 @@ function deletingItem(e){
          editMode=false
          addItem();
         }
-      
-
 }
+
 
     // edit an Item
 function editingItem(e){
@@ -117,7 +118,6 @@ function editingItem(e){
 }
 
 // setting to default form
-
 function setDefault(){
     input.value=''
     subBtn.textContent="Submit"
@@ -127,7 +127,6 @@ function setDefault(){
 }
 
 //  displaying notification message
-
 function alert(message , color){
     const notification = document.querySelector('.notification')
     notification.classList.add(`display-${color}`)
@@ -138,12 +137,19 @@ function alert(message , color){
    
 }
 
-// localStorage
-    function addToLocalStorage(a){
-        localStorage.setItem('lists', JSON.stringify(a))
-        console.log(a)
+
+// Save to localStorage
+    function addToLocalStorage(grocery){
+        let items = getFromLocalStorage()
+        items.push(grocery)
+        localStorage.setItem("lists", JSON.stringify(items))
+        console.log(groceries)
     }
 
+//  Get from localStorage
     function getFromLocalStorage(){
-    return JSON.parse(localStorage.getItem('lists'))
+      return JSON.parse(localStorage.getItem("lists"))?JSON.parse(localStorage.getItem("lists")):[]
+      // if local storage is emptied then returning empty array
     }
+
+
