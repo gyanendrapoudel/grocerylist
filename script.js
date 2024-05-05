@@ -10,11 +10,14 @@ let groceries =[];
 
 
 
-form.addEventListener("submit", addItem)
+form.addEventListener("submit", (e)=>{
+ e.preventDefault();
+ addItem();
+})
+
 
 // addItem 
-function addItem(e){
-  e.preventDefault()
+function addItem(){
    let id = new Date().getTime()
    if (!input.value) {
      alert('Please enter value', 'red')
@@ -36,11 +39,8 @@ function addItem(e){
      alert('Item Edited', 'green')
      setDefault();
      editMode = false
-    //  editing on local storage
-    editItemOnLocalStorage({
-      id: editId,
-      value: itemToEdit.parentNode.children[0].textContent,
-    })
+   
+    
      return
    }
 
@@ -64,9 +64,9 @@ function addItem(e){
    container.appendChild(element)
    alert('Item added on list', 'green')
 
-   //   saving item to localStorage
+  
    
-   addToLocalStorage({id:id,value:input.value})
+  
 
    setDefault()
 }
@@ -76,8 +76,8 @@ clearBtn.addEventListener('click',()=>{
   container.innerHTML = ''
   clearBtn.classList.remove('show')
   alert('Empty List', 'red')
-  // Removing from local storage
-   localStorage.removeItem('lists')
+ 
+  
 })
 
 
@@ -106,8 +106,8 @@ function deletingItem(e){
          editMode=false
          addItem();
         }
-        // Removing an Item from localStorage
-        removeFromLocalStorage(e.currentTarget.dataset.id)
+       
+       
 }
 
 
@@ -143,42 +143,8 @@ function alert(message , color){
    
 }
 
-
-// Save to localStorage
-    function addToLocalStorage(grocery){
-        let items = getFromLocalStorage()
-        items.push(grocery)
-        localStorage.setItem("lists", JSON.stringify(items))
-        console.log(groceries)
-    }
-
-//  Get  items from localStorage
-    function getFromLocalStorage(){
-      return JSON.parse(localStorage.getItem("lists"))?JSON.parse(localStorage.getItem("lists")):[]
-      // if local storage is emptied then returning empty array
-    }
+// displaying all grocery lists saved on local Storage when loading window
 
 
 
-//  Removing an Item from localStorage
-function  removeFromLocalStorage(id){
-    let items = getFromLocalStorage();
-    // id is on string type so converting into integer
-    items = items.filter((item)=>item.id!==parseInt(id));
-  
-}
-
- //  editing an item on local storage
-   function editItemOnLocalStorage(item){
-      console.log(item.id, typeof item.id, item.value)
-      let items = getFromLocalStorage()
-      items.forEach((data)=>{
-        if(data.id=== parseInt(item.id)){
-          data.value=item.value
-        }
-      })
-      // removing all items
-      localStorage.removeItem('lists');
-      // adding modify items
-      addToLocalStorage(items)
-    }
+      /* **LocalStorage*** */
