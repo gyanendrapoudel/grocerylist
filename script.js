@@ -24,19 +24,23 @@ function addItem(e){
      const lists = document.querySelectorAll('.edit-btn')
      let itemToEdit
      lists.forEach((li) => {
-       if (li.dataset.id === editId) {
-         itemToEdit = li
-       }
+      if (li.dataset.id === editId) {
+           itemToEdit = li
+        }
      })
-
-     if (!itemToEdit) {
-       return
-     }
+      if (!itemToEdit) {
+        return
+      }
      // Editing the list
      itemToEdit.parentNode.children[0].textContent = input.value
      alert('Item Edited', 'green')
-     setDefault()
+     setDefault();
      editMode = false
+    //  editing on local storage
+    editItemOnLocalStorage({
+      id: editId,
+      value: itemToEdit.parentNode.children[0].textContent,
+    })
      return
    }
 
@@ -148,18 +152,33 @@ function alert(message , color){
         console.log(groceries)
     }
 
-//  Get from localStorage
+//  Get  items from localStorage
     function getFromLocalStorage(){
       return JSON.parse(localStorage.getItem("lists"))?JSON.parse(localStorage.getItem("lists")):[]
       // if local storage is emptied then returning empty array
     }
 
 
+
 //  Removing an Item from localStorage
 function  removeFromLocalStorage(id){
-
-  let items = getFromLocalStorage();
-  // id is on string type so converting into integer
-  items = items.filter((item)=>item.id!==parseInt(id));
- 
+    let items = getFromLocalStorage();
+    // id is on string type so converting into integer
+    items = items.filter((item)=>item.id!==parseInt(id));
+  
 }
+
+ //  editing an item on local storage
+   function editItemOnLocalStorage(item){
+      console.log(item.id, typeof item.id, item.value)
+      let items = getFromLocalStorage()
+      items.forEach((data)=>{
+        if(data.id=== parseInt(item.id)){
+          data.value=item.value
+        }
+      })
+      // removing all items
+      localStorage.removeItem('lists');
+      // adding modify items
+      addToLocalStorage(items)
+    }
