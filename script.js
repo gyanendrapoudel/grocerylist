@@ -105,6 +105,7 @@ function deletingItem(e){
          editMode=false
          addItem();
         }
+        removeFromLocalStorage(e.currentTarget.dataset.id)
        
        
 }
@@ -162,4 +163,16 @@ function getLocalStorage() {
  return localStorage.getItem('list')
    ? JSON.parse(localStorage.getItem('list'))
    : []
+}
+
+// removing an item from local Storage
+function removeFromLocalStorage(id){
+  let items = getLocalStorage();
+  console.log(items)
+  items =items.filter((item)=>{
+    return (item.id !==parseInt(id))
+  })
+  localStorage.removeItem('list')
+  localStorage.setItem('list', JSON.stringify(items))
+  
 }
