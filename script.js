@@ -75,8 +75,8 @@ clearBtn.addEventListener('click',()=>{
   container.innerHTML = ''
   clearBtn.classList.remove('show')
   alert('Empty List', 'red')
- 
-  
+  // Removing all items when user click clear-items
+  localStorage.removeItem('list')
 })
 
 
