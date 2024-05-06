@@ -37,6 +37,8 @@ function addItem(){
      // Editing the list
      itemToEdit.parentNode.children[0].textContent = input.value
      alert('Item Edited', 'green')
+    //  Editing on Local Storage
+    editLocalStorage(editId,input.value)
      setDefault();
      editMode = false
    
@@ -175,4 +177,15 @@ function removeFromLocalStorage(id){
   localStorage.removeItem('list')
   localStorage.setItem('list', JSON.stringify(items))
   
+}
+// Editing an item from local Storage
+function editLocalStorage(id,value){
+  let items = getLocalStorage();
+  items.forEach((item)=>{
+    if(item.id===parseInt(id)){
+      item.value=value
+    }
+  })
+  localStorage.removeItem('list')
+  localStorage.setItem('list',JSON.stringify(items))
 }
