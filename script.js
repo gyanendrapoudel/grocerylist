@@ -63,10 +63,9 @@ function addItem(){
 
    container.appendChild(element)
    alert('Item added on list', 'green')
-
-  
    
-  
+  //  adding a grocery List to Local Storage
+   addToLocalStorage(id,input.value)
 
    setDefault()
 }
@@ -148,3 +147,19 @@ function alert(message , color){
 
 
       /* **LocalStorage*** */
+
+// adding to local Storage
+
+function addToLocalStorage(id, value) {
+  const grocery = { id, value }
+  let items = getLocalStorage()
+  items.push(grocery)
+  localStorage.setItem('list', JSON.stringify(items))
+}
+
+function getLocalStorage() {
+ 
+ return localStorage.getItem('list')
+   ? JSON.parse(localStorage.getItem('list'))
+   : []
+}
