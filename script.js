@@ -146,7 +146,34 @@ function alert(message , color){
 }
 
 // displaying all grocery lists saved on local Storage when loading window
+window.addEventListener('DOMContentLoaded',()=>{
+  let items = getLocalStorage();
+  items.forEach((item)=>{
 
+   const element = document.createElement('div')
+   element.classList.add('list')
+   element.innerHTML = ` <p>${item.value}</p> 
+                 <button class="delete-btn" data-id="${item.id}"><i class="fa-solid fa-trash"></i></button>
+                  <button class="edit-btn" data-id="${item.id}"><i class="fa-solid fa-pen-to-square"></i></button>
+             `
+
+   //    Delete event start
+   const deleteItem = element.querySelector('.delete-btn')
+   deleteItem.addEventListener('click', deletingItem)
+   //    Delete event end
+
+   //    Edit event start
+   const editItem = element.querySelector('.edit-btn')
+   editItem.addEventListener('click', editingItem)
+   //    Edit event end
+
+   container.appendChild(element)
+  })
+  if(items.length>0){
+    clearBtn.classList.add('show')
+
+  }
+})
 
 
       /* **LocalStorage*** */
